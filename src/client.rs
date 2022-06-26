@@ -1,33 +1,27 @@
-use std::error::Error;
+use crate::{chat::Chat, channel::Channel};
 
-pub struct FlockClient {}
-
-pub trait HttpClient<T>
+#[derive(Default, Clone)]
+pub struct FlockClient
 {
-	type Error;
-
-	fn post
-	(
-		&self,
-		url : &str,
-		headers: Option<T>,
-		payload: String,
-	)
-	-> Result<String, Self::Error>;
+	token: String,
+	chat: Chat,
+	channel: Channel,
+	// users: Users,
+	// roster: Roster
 }
 
-impl HttpClient<String> for FlockClient
+impl FlockClient
 {
-	type Error = dyn Error;
+	fn new(self, token: &str) -> Self
+	{
+		let base_url = String::from("https://api.flock.co/v1/");
 
-	fn post
-		(
-			&self,
-			url : &str,
-			headers: Option<T>,
-			payload: String,
-		)
-		-> Result<String, Self::Error> {
-			todo!()
+		Self
+		{
+			token: token.to_string(),
+			chat: Chat::new(&base_url),
+			channel: Channel::new(&base_url),
+			..Default::default()
 		}
+	}
 }
