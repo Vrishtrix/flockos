@@ -11,8 +11,8 @@ impl FetchMessages
 {
 	pub fn new(chat: &str, uids: Vec<String>) -> Self
 	{
-		Self 
-		{ 
+		Self
+		{
 			chat: chat.to_string(),
 			uids
 		}
